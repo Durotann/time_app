@@ -9,7 +9,7 @@ final class TimeInitial extends TimeState {}
 class TimeLoad extends TimeState {}
 
 class TimeLoaded extends TimeState {
-  final Data data;
+  final String data;
   TimeLoaded({
     required this.data,
   });

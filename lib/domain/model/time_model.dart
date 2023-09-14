@@ -1,3 +1,4 @@
+import 'package:alibek_lef/data/repository/api_time_repository.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'time_model.g.dart';
 
@@ -18,6 +19,7 @@ class Data {
   String utc_datetime;
   String utc_offset;
   int week_number;
+
   Data({
     required this.abbreviation,
     required this.client_ip,

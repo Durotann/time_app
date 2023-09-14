@@ -1,4 +1,6 @@
-import 'package:alibek_lef/data/repository/repository.dart';
+import 'package:alibek_lef/data/repository/local_time_repository.dart';
+import 'package:alibek_lef/data/repository/time_repository.dart';
+import 'package:alibek_lef/data/repository/api_time_repository.dart';
 import 'package:alibek_lef/view/mainscreen/Presentation/main_screen.dart';
 import 'package:alibek_lef/view/mainscreen/bloc/time_bloc.dart';
 import 'package:flutter/material.dart';
@@ -8,18 +10,26 @@ void main() {
   runApp(const MainApp());
 }
 
+final ValueNotifier<TimeRepository> notifier =
+    ValueNotifier(LocalTimeRepository());
+
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final repository = Repository();
-    return MultiBlocProvider(
-        providers: [
-          BlocProvider(create: (context) => TimeBloc(repository)),
-        ],
-        child: MaterialApp(
-          home: Scaffold(body: MainScreen()),
-        ));
+    return ValueListenableBuilder(
+        valueListenable: notifier,
+        builder: (context, snapshot, _) {
+          return MultiBlocProvider(
+              providers: [
+                BlocProvider(
+                  create: (context) => TimeBloc(notifier),
+                ),
+              ],
+              child: MaterialApp(
+                home: Scaffold(body: MainScreen()),
+              ));
+        });
   }
 }
